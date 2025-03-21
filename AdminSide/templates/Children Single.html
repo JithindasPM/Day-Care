@@ -1,0 +1,92 @@
+{% extends 'Index.html' %}
+{% block content %}
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Basic form elements</h4>
+        <p class="card-description"> Basic form elements </p>
+        <form class="forms-sample" action="{% url 'Assign_driver' infoid=x.Id %}" method="post">
+            {% csrf_token %}
+    
+          <div class="form-group">
+            <label for="exampleInputName1">First Name :</label>
+            <h2>{{x.First_Name}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Last_Name :</label>
+            <h2>{{x.Last_Name}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Username :</label>
+            <h2>{{x.Username}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Parents_Name :</label>
+            <h2>{{x.Parents_Name}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Phone :</label>
+            <h2>{{x.Phone}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Address :</label>
+            <h2>{{x.Address}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Location :</label>
+            <h2>{{x.Location}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Pickup_Point :</label>
+            <h2>{{x.Pickup_Point}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Drop_Point :</label>
+            <h2>{{x.Drop_Point}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Medical_History :</label>
+            <h2>{{x.Medical_History}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Alleries :</label>
+            <h2>{{x.Alleries}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Special_Attention :</label>
+            <h2>{{x.Special_Attention}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Emergency_Procedures :</label>
+            <h2>{{x.Emergency_Procedures}}</h2>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Image :</label>
+            <img src="{{x.Kid_Image.url}}" alt="" width="90px" height="90px">
+          </div>
+      
+          
+
+          
+
+
+          <div class="form-group">
+            <label for="exampleSelectGender">Assign Driver</label>
+            <select name="driver"  class="form-control" id="vehicleSelect">
+                 <option value="">Select</option>
+                {% for driver in y %}
+                <option value="{{ driver.id }}">{{ driver.Name }}</option>
+                {% endfor %}
+                
+            </select>
+          </div>
+
+
+          
+          <button type="submit" class="btn btn-primary mr-2">Submit</button>
+          <button class="btn btn-dark">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

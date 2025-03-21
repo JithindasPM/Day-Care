@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+</head>
+<body>
+
+
+    <form action="{% url 'Save_staff' %}" method="post">
+        {% csrf_token %}
+
+        <div class="container">
+            <h1 class="h1">Sign Up</h1>
+            <input class="in" type="text" placeholder="Full Name" name="Fname" required>
+            <input class="in" type="tel" required placeholder="Mobile Number" inputmode="numeric" name="mob" max="10" maxlength="10"><br><br>
+
+            <input class="in" type="text" required placeholder="Location" name="loc" >
+
+            <input class="in" type="text" required placeholder="Address Line" name="addr" maxlength="15" minlength="6"><br><br>
+            <input class="in" type="password" required placeholder="Password" name="pwd" id="Password" maxlength="6" minlength="4">
+            
+
+            <br><br>
+
+
+            <button type="submit" class="btn">Register</button>
+            <p style="color: white;font-size: 20px;">Already Have An Account ?</p><a href="{% url 'Staff_Login_Page' %}" style="text-decoration: none;color: rgb(190, 197, 90);font-size: 20px;font-weight: bolder;">Sign In</a>
+            
+
+            
+        </div>
+    </form>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    
+    <style>
+        label {
+  background-color: rgb(255, 111, 1);
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  width:350px;
+    height: 30px;
+    border: none;
+            border-radius: 14px;
+
+            padding-left: 10px;
+}
+
+
+
+        .txt{
+            width:400px;
+            height: 60px;
+            border: none;
+            border-radius: 14px;
+            border-color: white !important;
+            padding-left: 10px;
+        }
+        .txt::placeholder{
+            font-style: normal;
+            font-weight: 200px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            padding-top: 17px;
+            padding-left: 10px;
+        }
+
+        h3{
+            color: rgb(87, 87, 87);
+        }
+
+        button:hover {
+            background-color: rgb(250, 95, 6);
+
+        }
+
+        button{
+            width: 150px;
+            height:28px;
+            border-radius: 14px;
+            border: none;
+            background-color: rgb(232, 122, 78);
+            color: white;
+
+        }
+
+
+        .in{
+            width:350px;
+            height: 30px;
+            border: none;
+            border-radius: 14px;
+            border-color: white !important;
+            padding-left: 10px;
+
+
+
+        }
+
+
+        .h1{
+            font-style: normal;
+            font-size: 40px;
+            padding-top: 30px;
+            color: rgb(6, 6, 6);
+
+        }
+
+
+
+        .container{
+            margin: 400px;
+            backdrop-filter: blur(5px);
+            width: 800px;
+            border-radius: 17px;
+            margin-top: 100px;
+            text-align: center;
+
+
+
+        }
+
+        body{
+            height: 100vh;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-size:cover;
+            position: absolute;
+            background-image:url(https://media.istockphoto.com/id/1366137792/photo/business-persons-on-meeting-in-the-office.jpg?s=612x612&w=0&k=20&c=0ya-nb5-ksH44xHreYxOOva9Hku1xcA7LtbfTxeSzNE=);
+        }
+    </style>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+{% extends 'Index.html' %}
+{% block content %}
+<div class="col-12 grid-margin">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Order Status</h4>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              
+              <th>First_Name</th>
+              <th>Last_Name</th>
+              <th>Parents_Name</th>
+              <th>Phone </th>
+              <th> Username </th>
+              <th>Location</th>
+              <th> Email </th>
+              <th> Address </th>
+              <th> Pickup_Point </th>
+              <th> Drop_Point </th>
+              <th> Medical_History</th>
+              <th> Alleries </th>
+              <th> Special_Attention </th>
+              <th>Emergency_Procedures</th>
+              <th>Kid_Image</th>
+              <th>Driver Assigned</th>
+              <th>Assign Driver</th>
+              
+
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in x %}
+            <tr>
+              <td>
+                <span class="pl-2">{{i.First_Name}}</span>
+              </td>
+              <td> {{i.Last_Name}} </td>
+              <td> {{i.Parents_Name}} </td>
+              <td> {{i.Phone}} </td>
+              <td> {{i.Username}} </td>
+              <td> {{i.Location}} </td>
+              <td> {{i.Email}} </td>
+              <td> {{i.Address}} </td>
+              <td>
+                {{i.Pickup_Point}}             
+          </td>
+          <td> {{i.Drop_Point}} </td>
+          <td> {{i.Medical_History}} </td>
+          <td> {{i.Alleries}} </td>
+          <td> {{i.Special_Attention}} </td>
+          <td> {{i.Emergency_Procedures}} </td>
+          <td> <img src="{{i.Kid_Image.url}}" alt="" height="50px" width="50px"> </td>
+          <td> {{i.driver.Name}} </td>
+          <td>
+            <a href="{% url 'single_Children' infoid=i.Id %}" class="btn btn-outline-warning">Assign Driver</a>
+          </td>
+          
+             
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

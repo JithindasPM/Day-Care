@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+</head>
+<body>
+
+
+    <form action="{% url 'Driver_Registration_save' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="container">
+            <h1 class="h1">Sign Up</h1>
+            <input class="in" type="text" placeholder="Full Name" name="Fname" required>
+            <input class="in" type="tel" required placeholder="Mobile Number" inputmode="numeric" name="mob" max="10" maxlength="10"><br><br>
+
+            <input class="in" type="text" required placeholder="Username" name="uname" >
+
+            <input class="in" type="email" required placeholder="example@gmail.com" name="email" ><br><br>
+            <input class="in" type="text" required placeholder="Address Line 1" name="addr1" maxlength="15" minlength="6">
+            <input class="in" type="text" required placeholder="Address Line 2" name="addr2" maxlength="15" minlength="5"><br><br>
+            <input class="in" type="text" required placeholder="Zip Code" name="zip" maxlength="6">
+            <input class="in" type="password" required placeholder="Password" name="pwd" id="Password" maxlength="5" minlength="4">
+            
+
+            <br><br>
+            <input type="text" name="Proof_Id" placeholder="Driving License Number" maxlength="15" pattern="[A-Z]{2}\d{13}" class="in" required>
+
+            <input type="file" id="actual-btn" name="IDImage" required hidden/>
+            <label for="actual-btn">Upload License</label><br><br>
+
+            <button type="submit" class="btn">Register</button>
+            <p style="color: white;font-size: 20px;">Already Have An Account ?</p><a href="{% url 'Driver_Login' %}" style="text-decoration: none;color: rgb(190, 197, 90);font-size: 20px;font-weight: bolder;">Sign In</a>
+            
+
+            
+        </div>
+    </form>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    
+    <style>
+        label {
+  background-color: rgb(255, 221, 1);
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  width:350px;
+    height: 30px;
+    border: none;
+            border-radius: 14px;
+
+            padding-left: 10px;
+}
+
+
+
+        .txt{
+            width:400px;
+            height: 60px;
+            border: none;
+            border-radius: 14px;
+            border-color: white !important;
+            padding-left: 10px;
+        }
+        .txt::placeholder{
+            font-style: normal;
+            font-weight: 200px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            padding-top: 17px;
+            padding-left: 10px;
+        }
+
+        h3{
+            color: rgb(87, 87, 87);
+        }
+
+        button:hover {
+            background-color: rgb(250, 226, 6);
+
+        }
+
+        button{
+            width: 150px;
+            height:28px;
+            border-radius: 14px;
+            border: none;
+            background-color: rgb(232, 216, 78);
+            color: white;
+
+        }
+
+
+        .in{
+            width:350px;
+            height: 30px;
+            border: none;
+            border-radius: 14px;
+            border-color: white !important;
+            padding-left: 10px;
+
+
+
+        }
+
+
+        .h1{
+            font-style: normal;
+            font-size: 40px;
+            padding-top: 30px;
+            color: rgb(6, 6, 6);
+
+        }
+
+
+
+        .container{
+            margin: 400px;
+            backdrop-filter: blur(5px);
+            width: 800px;
+            border-radius: 17px;
+            margin-top: 100px;
+            text-align: center;
+
+
+
+        }
+
+        body{
+            height: 100vh;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-size:cover;
+            position: absolute;
+            background-image:url({% static 'usr/images/driver4.jpg' %});
+        }
+    </style>
+
+</body>
+</html>

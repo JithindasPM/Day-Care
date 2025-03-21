@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <!-- Font Awesome -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css"
+rel="stylesheet"
+/>
+</head>
+<body style="background-image: url(https://www.digitaloutlook.com.au/wp-content/uploads/2017/09/future_payment_methods-compressor-1.jpg);">
+    <section class="p-4 p-md-8" style="margin-top: 90px;">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-5">
+      <div class="card rounded-3">
+        <div class="card-body p-4">
+          <div class="text-center mb-4">
+            <h3>Payment</h3>
+            <h5>Settings</h5>
+            
+          </div>
+          <form action="{% url 'Payment_save' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="customer" hidden value="{{request.session.Username}}">
+            <input type="text" name="id" value="{{x.id}}">
+            <div class="d-flex flex-row align-items-center mb-4 pb-1">
+              <img class="img-fluid" src="https://img.icons8.com/color/48/000000/mastercard-logo.png" />
+              <img class="img-fluid" src="https://img.icons8.com/color/48/000000/visa.png" />
+              <div class="flex-fill mx-3">
+                <div class="form-outline">
+                  <input type="text" name="crdnum" id="formControlLgXc" class="form-control form-control-lg"
+                    placeholder="**** **** **** 3193" minlength="16" maxlength="16" required/>
+                  <label class="form-label" for="formControlLgXc">Card Number</label>
+                </div>
+              </div>
+              
+            </div>
+
+            
+
+
+            <div class="form-outline mb-4">
+              <input type="text" name="crdname" id="formControlLgXsd" class="form-control form-control-lg"
+                placeholder="Anna Doe" required/>
+              <label class="form-label" for="formControlLgXsd">Cardholder's Name</label>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col-7">
+                <div class="form-outline">
+                    <label class="form-label" for="formControlLgXM">Amount Due</label>
+                  <input type="text" name="amt" id="formControlLgXM" class="form-control form-control-lg"
+                    value="{{x.Price}}" readonly/>
+                  
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="form-outline">
+                    <label class="form-label" for="formControlLgExpk">Expire</label>
+                  <input type="date" name="exp" id="formControlLgExpk" required class="form-control form-control-lg"
+                    />
+                  
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="form-outline">
+                  <input type="password" name="cv" id="formControlLgcvv" class="form-control form-control-lg"
+                    placeholder="Cvv" maxlength="3" required minlength="3"/>
+                  <label class="form-label" for="formControlLgcvv">Cvv</label>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-success btn-lg btn-block">Proceed Payment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"
+></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+      {% for i in messages %}
+           {% if i.tags == 'warning' %}
+               <script>
+                    swal('{{i}}','','warning');
+               </script>
+           {% elif i.tags == 'error' %}
+               <script>
+                    swal('{{i}}','','error');
+               </script>
+           {% else %}
+               <script>
+                    swal('{{i}}','','success');
+               </script>
+           {% endif %}
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

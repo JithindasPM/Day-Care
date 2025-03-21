@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <title>Day Care Management</title>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+
+    
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+      .form-control {
+          height: 45px; /* Increases input field height */
+          border: 2px solid #007bff !important; /* Blue border */
+          color: #000 !important; /* Black text color */
+          padding: 10px;
+          font-size: 16px;
+      }
+  
+      .form-control::placeholder {
+          color: #555 !important; /* Dark gray placeholder */
+          opacity: 1; /* Ensures it's fully visible */
+          font-style: italic;
+      }
+  
+      .form-control:focus {
+          border-color: #0056b3 !important; /* Darker blue on focus */
+          box-shadow: 0 0 5px rgba(0, 91, 187, 0.5); /* Light glow effect */
+      }
+  
+      .btn-primary {
+          background-color: #007bff; /* Primary button color */
+          border: none;
+          transition: 0.3s;
+      }
+  
+      .btn-primary:hover {
+          background-color: #0056b3; /* Darker shade on hover */
+      }
+  </style>
+
+  </head>
+  <body>
+  	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	      <a class="navbar-brand" href="{% url 'Home' %}">Little<small>Learners</small></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item active"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+	          
+	          <li class="nav-item"><a href="{% url 'About' %}" class="nav-link">About</a></li>
+            {% if request.session.Username %}
+			  <li class="nav-item"><a href="{% url 'Profile' %}" class="nav-link">Profile</a></li>
+
+        
+			  <li class="nav-item"><a href="{% url 'Parents_Logout' %}" class="nav-link">Logout</a></li>
+            {% endif %}
+	          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="room.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown04">
+                <a class="dropdown-item" href="{% url 'ParentsLogin' %}">Parent</a>
+                <a class="dropdown-item" href="{% url 'Login' %}">Admin</a>
+                <a class="dropdown-item" href="{% url 'Driver_Login' %}">Driver</a>
+                <a class="dropdown-item" href="{% url 'Staff_Login_Page' %}">Staff</a>
+                
+              </div>
+            </li>
+            
+	        </ul>
+	      </div>
+		  </div>
+	  </nav>
+    <!-- END nav -->
+
+    <section class="home-slider owl-carousel">
+      <div class="slider-item" style="background-image: url({% static 'images/daycare1.png' %});">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+            <div class="col-md-8 col-sm-12 text-center ftco-animate">
+            	<span class="subheading">Welcome</span>
+              <h1 class="mb-4">The Best Day-Care And Playschool</h1>
+              <p class="mb-4 mb-md-5">Panda programs are designed to meet the individual child's basic developmental needs: social, physical, emotional, intellectual, creative.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-item" style="background-image: url({% static 'images/daycare2.jpg' %});">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+            <div class="col-md-8 col-sm-12 text-center ftco-animate">
+            	<span class="subheading">Welcome</span>
+              <h1 class="mb-4">The Best Day-Care And Playschool</h1>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-item" style="background-image: url({% static 'images/daycare3.jpg' %});">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+            <div class="col-md-8 col-sm-12 text-center ftco-animate">
+            	<span class="subheading">Welcome</span>
+              <h1 class="mb-4">The Best Day-Care And Playschool</h1>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-intro">
+    	<div class="container-wrap">
+    		<div class="wrap d-md-flex align-items-xl-end">
+	    		<div class="info">
+	    			<div class="row no-gutters">
+	    				<div class="col-md-4 d-flex ftco-animate">
+	    					<div class="icon"><span class="icon-phone"></span></div>
+	    					<div class="text">
+	    						<h3>000 (123) 456 7890</h3>
+	    						<p>A small river named Duden flows by their place and supplies.</p>
+	    					</div>
+	    				</div>
+	    				<div class="col-md-4 d-flex ftco-animate">
+	    					<div class="icon"><span class="icon-my_location"></span></div>
+	    					<div class="text">
+	    						<h3>198 West 21th Street</h3>
+	    						<p>	203 Fake St. Mountain View, San Francisco, California, USA</p>
+	    					</div>
+	    				</div>
+	    				<div class="col-md-4 d-flex ftco-animate">
+	    					<div class="icon"><span class="icon-clock-o"></span></div>
+	    					<div class="text">
+	    						<h3>Open Monday-Friday</h3>
+	    						<p>8:00am - 9:00pm</p>
+	    					</div>
+	    				</div>
+	    			</div>
+	    		</div>
+	    		
+    		</div>
+    	</div>
+    </section>
+
+
+    {% if request.session.Username %}
+
+    <div class="book p-4">
+      <h1 class="text-dark">Driver Assiged</h1>
+      <div class="form-group">
+        <h4 class="text-dark">Driver Name : {{x.driver.Name}}</h4>
+        <h4 class="text-dark">Mobile : {{x.driver.Mobile}}</h4>
+      </div>
+
+      <form action="{% url 'Update_Route' dataid=x.Id %}" class="appointment-form p-4 shadow rounded" method="post" style="background-color: #b4b2b2;">
+        {% csrf_token %}
+    
+        <div class="row mb-3">
+            <div class="col-md-6" >
+                <label for="pickup" class="form-label">Pick Up</label>
+                <input type="text" class="form-control"  name="pickup" placeholder="Enter pickup location" style="color:black;" required>
+            </div>
+            <div class="col-md-6">
+                <label for="dropoff" class="form-label">Drop Off</label>
+                <input type="text" class="form-control" id="dropoff" name="dropoff" placeholder="Enter drop-off location" required>
+            </div>
+        </div>
+    
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+            </div>
+            <div class="col-md-6">
+                <label for="PickUpTime" class="form-label">Pickup Time</label>
+                <input type="time" class="form-control" id="PickUpTime" name="PickUpTime" required>
+            </div>
+        </div>
+    
+        <div class="text-center">
+            <input type="submit" value="Assign" class="btn btn-primary px-5 py-2">
+        </div>
+    </form>
+    </div>
+    
+    
+    {% endif %}
+
+    <section class="ftco-section ftco-services">
+    	<div class="container">
+    		<div class="row">
+          <div class="col-md-4 ftco-animate">
+            <div class="media d-block text-center block-6 services">
+              <div class="icon d-flex justify-content-center align-items-center mb-5">
+              	<span class="flaticon-choices"></span>
+              </div>
+              <div class="media-body">
+                <h3 class="heading">Easy to Registration</h3>
+                <p>A friendly gesture is smiling, waving and saying hello.</p>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-4 ftco-animate">
+            <div class="media d-block text-center block-6 services">
+              <div class="icon d-flex justify-content-center align-items-center mb-5">
+              	<span class="flaticon-delivery-truck"></span>
+              </div>
+              <div class="media-body">
+                <h3 class="heading">Transportation</h3>
+                <p>Eco-friendly means of transport are the transports that produce fewer harmful impacts on the environment than the casual vehicles.</p>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-4 ftco-animate">
+            <div class="media d-block text-center block-6 services">
+              <div class="icon d-flex justify-content-center align-items-center mb-5">
+              	<span class="flaticon-coffee-bean"></span></div>
+              <div class="media-body">
+                <h3 class="heading">Quality Assurance</h3>
+                <p>QAR's verify the accuracy of the Department Manager's responses to the Fiscal Management Sub 
+									Certification.</p>
+              </div>
+            </div>    
+          </div>
+        </div>
+    	</div>
+    </section>
+    {% if request.session.Username %}
+    <div class="book p-4">
+      <h3>Give Us Feedback</h3>
+      <div class="form-group">
+       
+      </div>
+      
+
+      <form action="{% url 'rating_save' %}" class="appointment-form rounded" method="post" style="background-color: #b4b2b2;">
+
+        {% csrf_token %}
+        <div class="d-md-flex">
+          
+          <input type="text" value="{{x.Username}}" hidden name="uname">
+          <input type="text" value="{{x.Parents_Name}}" hidden name="parents">
+
+          <div class="form-group">
+            <input type="text" class="form-control" name="des" placeholder="Submit Your Feedback">
+          </div><br>
+          
+        
+        <div class="d-md-flex">
+          <div class="form-group ml-md-4">
+            <input type="submit" value="Submit" class="btn btn-primary py-3 px-4">
+          </div>
+        </div>
+      </form>
+      
+    </div>{% endif %}
+
+    <section class="ftco-section">
+    	<div class="container">
+    		<div class="row align-items-center">
+    			<div class="col-md-6 pr-md-5">
+    				<div class="heading-section text-md-right ftco-animate">
+	          	<span class="subheading">Discover</span>
+	            <h2 class="mb-4">Our Plans</h2>
+	            <p class="mb-4">To assure parents/guardians that their children will be in a safe, healthy environment
+					 where staff will strive to meet emotional, social, and physical needs. To create a happy, warm and exciting
+					 environment that is inviting, comfortable, flexible, and manageable for the children.</p>
+           {% if request.session.Username %}
+	            <p><a href="{% url 'View_Plans' %}" class="btn btn-primary btn-outline-primary px-4 py-3">View Full Plan</a></p>
+              {% else %}
+	            <p><a href="{% url 'ParentsLogin' %}" class="btn btn-primary btn-outline-primary px-4 py-3">Login</a></p>
+              {% endif %}
+	          </div>
+    			</div>
+    			<div class="col-md-6">
+    				<div class="row">
+    					<div class="col-md-6">
+    						<div class="menu-entry">
+		    					<a href="#" class="img" style="background-image: url({% static 'images/parentsday1.jpg' %});"></a>
+		    				</div>
+    					</div>
+    					<div class="col-md-6">
+    						<div class="menu-entry mt-lg-4">
+		    					<a href="#" class="img" style="background-image: url({% static 'images/parentsday2.webp' %});"></a>
+		    				</div>
+    					</div>
+    					<div class="col-md-6">
+    						<div class="menu-entry">
+		    					<a href="#" class="img" style="background-image: url({% static 'images/parentsday5.avif' %});"></a>
+		    				</div>
+    					</div>
+    					<div class="col-md-6">
+    						<div class="menu-entry mt-lg-4">
+		    					<a href="#" class="img" style="background-image: url({% static 'images/parentsday6.jpg' %});"></a>
+		    				</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </section>
+
+    
+
+  
+
+    <section class="ftco-section img" id="ftco-testimony" style="background-image: url({% static 'images/daycare3.jpg' %});"  data-stellar-background-ratio="0.5">
+    	<div class="overlay"></div>
+	    <div class="container">
+	      <div class="row justify-content-center mb-5">
+	        <div class="col-md-7 heading-section text-center ftco-animate">
+	        	<span class="subheading">Testimony</span>
+	          <h2 class="mb-4">Customers Says</h2>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="container-wrap">
+	      <div class="row d-flex no-gutters">
+          {% for i in y %}
+	        <div class="col-lg align-self-sm-end ftco-animate">
+	          <div class="testimony">
+	             <blockquote>
+	                <p>&ldquo;{{i.Description}}&rdquo;</p>
+	              </blockquote>
+	              <div class="author d-flex mt-4">
+	                <div class="image mr-3 align-self-center">
+	                  <img src="images/person_1.jpg" alt="">
+	                </div>
+	                <div class="name align-self-center">{{i.Username}}<span class="position">{{i.Parents_Name}}</span></div>
+	              </div>
+	          </div>
+	        </div>
+          {% endfor %}
+	        
+	      </div>
+	    </div>
+	  </section>
+
+   
+
+    <footer class="ftco-footer ftco-section img">
+    	<div class="overlay"></div>
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">About Us</h2>
+              <p>Child care, otherwise known as day care, is the care and supervision of a child or multiple 
+				children at a time, whose ages range from two weeks of age to 18 years.</p>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mb-5 mb-md-5">
+            <div class="ftco-footer-widget mb-4">
+              <div class="block-21 mb-4 d-flex">
+                <a class="blog-img mr-4" style="background-image: url({% static 'images/parentsday3.jpg' %});"></a>
+                
+              </div>
+              <div class="block-21 mb-4 d-flex">
+                <a class="blog-img mr-4" style="background-image: url({% static 'images/parentsday6.jpg' %});"></a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-3 col-md-6 mb-5 mb-md-5">
+            <div class="ftco-footer-widget mb-4">
+            	<h2 class="ftco-heading-2">Have Information</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i> </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+  
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+  <script src="{% static 'js/jquery.timepicker.min.js' %}"></script>
+  <script src="{% static 'js/scrollax.min.js' %}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="{% static 'js/google-map.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+      {% for i in messages %}
+           {% if i.tags == 'warning' %}
+               <script>
+                    swal('{{i}}','','warning');
+               </script>
+           {% elif i.tags == 'error' %}
+               <script>
+                    swal('{{i}}','','error');
+               </script>
+           {% else %}
+               <script>
+                    swal('{{i}}','','success');
+               </script>
+           {% endif %}
+        {% endfor %}
+    {% endif %}
+    
+  </body>
+</html>

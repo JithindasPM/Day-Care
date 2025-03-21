@@ -1,0 +1,108 @@
+{% extends 'Driver Dashboard.html' %}
+{% block content %}
+<div class="col-10 grid-margin">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Assigned Childrens</h4>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              
+              <th>Route Updates</th>
+              <th>Child</th>
+              <th>Children Name</th>
+              <th>Parent Name</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>Permanent Pick Up</th>
+              <th>Permanent Drop Off</th>
+              
+              
+
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in x %}
+            <tr>
+              <td>
+                <!-- Button trigger modal -->
+
+            
+                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="populateModal('{{i.Temp_Pickup_Point}}', '{{i.Temp_Drop_Point}}', '{{i.time_field}}', '{{i.date_field}}')">
+                  MSG
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Route</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <label for="pickup-point" class="col-form-label">Pick Up :</label>
+                          <input type="text" class="form-control" id="pickup-point" style="color: black;" readonly>
+                        </div>
+                        <div class="mb-3">
+                          <label for="drop-point" class="col-form-label">Drop Off :</label>
+                          <input type="text" class="form-control" id="drop-point" style="color: black;" readonly>
+                        </div>
+                        <div class="mb-3">
+                          <label for="time" class="col-form-label">Time :</label>
+                          <input type="text" class="form-control" id="time" style="color: black;" readonly>
+                        </div>
+                        <div class="mb-3">
+                          <label for="date" class="col-form-label">Date :</label>
+                          <input type="text" class="form-control" id="date" style="color: black;" readonly>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+              </td>
+
+
+              <td> <img src="{{i.Kid_Image.url}}" alt="" width="70px" height="70px">
+                
+              </td>
+              <td>
+                <span class="pl-2">{{i.First_Name}} {{i.Last_Name}}</span>
+              </td>
+              <td> {{i.Parents_Name}} </td>
+              <td> {{i.Address}} </td>
+              <td>{{i.Phone}}</td>
+              <td>{{i.Pickup_Point}}</td>
+              <td>{{i.Drop_Point}}</td>
+              <th hidden>{{i.Temp_Pickup_Point}}</th>
+              <th hidden>{{i.Temp_Drop_Point}}</th>
+              <th hidden>{{i.time_field}}</th>
+              <th hidden>{{i.date_field}}</th>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+  function populateModal(pickupPoint, dropPoint, time, date) {
+    document.getElementById('pickup-point').value = pickupPoint;
+    document.getElementById('drop-point').value = dropPoint;
+    document.getElementById('time').value = time;
+    document.getElementById('date').value = date;
+  }
+</script>
+
+{% endblock %}

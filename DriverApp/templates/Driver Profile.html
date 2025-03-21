@@ -1,0 +1,87 @@
+{% extends 'Driver Dashboard.html' %}
+{% block content %}
+
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">My Profile</h4>
+            <form class="forms-sample" action="#" method="post">
+                {% csrf_token %}
+              <div class="form-group">
+                <label for="exampleInputName1">Name :</label>
+                <h2>{{cab.Name}}</h2>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputName1">Username :</label>
+                <h2>{{cab.Username}}</h2>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail3">Email address :</label>
+                <h3>{{cab.Email}}</h3>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail3">Address1 :</label>
+                <h3>{{cab.Address1}}</h3>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail3">Address2 :</label>
+                <h3>{{cab.Address2}}</h3>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail3">PIN CODE :</label>
+                <h4>{{cab.Pin_Code}}</h4>
+              </div>
+              
+              <div class="form-group">
+                <label for="exampleInputPassword4">Verification Status </label>
+                <h4>{{cab.Verified}}</h4>
+            </div>
+              
+              
+              <div class="form-group">
+                <label for="exampleInputCity1">License_Number :</label>
+                <h3>{{cab.License_Number}}</h3>
+              </div>
+
+              <a href="" onclick="openPDF('{{cab.ID_Image.url }}'); return false;">
+                <img src="{{cab.ID_Image.url}}" alt="" width="500px" height="350px">
+              </a>
+              
+              <div class="form-group">
+                <label for="exampleSelectGender">Assigned Vehicle :</label>
+                <h4>{{cab.Vehicle_Num}}</h4>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+      <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Hide the vehicle dropdown initially
+        $("#vehicleSelect").hide();
+
+        // Handle change event on the status dropdown
+        $("#statusSelect").change(function () {
+            // Get the selected status value
+            var selectedStatus = $(this).val();
+
+            // If the selected status is "VERIFIED", show the vehicle dropdown
+            if (selectedStatus === "VERIFIED") {
+                $("#vehicleSelect").show();
+            } else {
+                // If not, hide the vehicle dropdown
+                $("#vehicleSelect").hide();
+            }
+        });
+    });
+</script>
+
+      <script>
+        function openPDF(url) {
+      window.open(url, '_blank');
+    }
+    </script>
+  {% endblock %}

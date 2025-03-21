@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Font Awesome -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css"
+rel="stylesheet"
+/>
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"
+></script>
+</head>
+<body>
+
+    <section class="vh-300" style="background-color: #2779e2;">
+        <div class="container h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-9">
+      
+              <h1 class="text-white mb-4">Profile Updation</h1>
+      
+              <div class="card" style="border-radius: 15px;">
+                <div class="card-body">
+      
+                  <div class="px-5 py-4">
+                  </div>
+                  <form method="post" action="{% url 'Update_Registration' infoid=x.Id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+      
+                    <div class="row align-items-center pt-4 pb-3">
+                      <div class="col-md-3 ps-5">
+                        <h6 class="mb-0">First Name</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input type="text" class="form-control form-control-lg" value="{{x.First_Name}}" name="First_Name" />
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="row align-items-center py-3">
+                      <div class="col-md-3 ps-5">
+                        <h6 class="mb-0">Last Name</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input type="text" class="form-control form-control-lg" value="{{x.Last_Name}}" name="Last_Name" />
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="row align-items-center py-3">
+                      <div class="col-md-3 ps-5">
+                        <h6 class="mb-0">Parents Name</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input type="text" class="form-control form-control-lg" value="{{x.Parents_Name}}" name="Parents_Name" />
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="row align-items-center py-3">
+                      <div class="col-md-3 ps-5">
+                        <h6 class="mb-0">Phone</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input type="text" value="{{x.Phone}}" class="form-control form-control-lg" name="Phone" />
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="row align-items-center py-3">
+                      <div class="col-md-3 ps-5">
+                        <h6 class="mb-0">Address</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input type="text" value="{{x.Address}}" class="form-control form-control-lg" name="Address" />
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="row align-items-center py-3">
+                      <div class="col-md-3 ps-5">
+                        <h6 class="mb-0">Location</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input type="text" value="{{x.Location}}" class="form-control form-control-lg" name="Location" />
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="row align-items-center py-3">
+                      <div class="col-md-3 ps-5">
+                        <h6 class="mb-0">Pickup Point</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input type="text" value="{{x.Pickup_Point}}" class="form-control form-control-lg" name="Pickup_Point" />
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="row align-items-center py-3">
+                      <div class="col-md-3 ps-5">
+                        <h6 class="mb-0">Drop Point</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input type="text" value="{{x.Drop_Point}}" class="form-control form-control-lg" name="Drop_Point" />
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="row align-items-center py-3">
+                      <div class="col-md-3 ps-5">
+                        <h6 class="mb-0">Medical History</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input type="text" value="{{x.Medical_History}}" class="form-control form-control-lg" name="Medical_History" />
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="row align-items-center py-3">
+                      <div class="col-md-3 ps-5">
+                        <h6 class="mb-0">Allergies</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input type="text" value="{{x.Alleries}}" class="form-control form-control-lg" name="Allergies" />
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="row align-items-center py-3">
+                      <div class="col-md-3 ps-5">
+                        <h6 class="mb-0">Special Attention</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input type="text" value="{{x.Special_Attention}}" class="form-control form-control-lg" name="Special_Attention" />
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="row align-items-center py-3">
+                      <div class="col-md-3 ps-5">
+                        <h6 class="mb-0">Emergency Procedures</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input type="text" value="{{x.Emergency_Procedures}}" class="form-control form-control-lg" name="Emergency_Procedures" />
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="row align-items-center py-3">
+                      <div class="col-md-3 ps-5">
+                        <img src="{{x.Kid_Image.url}}" alt="" height="90px" width="90px">
+                        <h6 class="mb-0">Upload Kid's Image</h6>
+                      </div>
+                      <div class="col-md-9 pe-5">
+                        <input class="form-control form-control-lg" name="Kid_Image" id="formFileLg" type="file" />
+                        <div class="small text-muted mt-2">Upload your kid's image</div>
+                      </div>
+                    </div>
+      
+                    <hr class="mx-n3">
+      
+                    <div class="px-5 py-4">
+                      <button type="submit" class="btn btn-primary btn-lg">Re-submit</button>
+                    </div>
+                    
+                    
+                  </form>
+                  
+                </div>
+              </div>
+      
+            </div>
+          </div>
+        </div>
+      </section>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+      {% for i in messages %}
+           {% if i.tags == 'warning' %}
+               <script>
+                    swal('{{i}}','','warning');
+               </script>
+           {% elif i.tags == 'error' %}
+               <script>
+                    swal('{{i}}','','error');
+               </script>
+           {% else %}
+               <script>
+                    swal('{{i}}','','success');
+               </script>
+           {% endif %}
+        {% endfor %}
+    {% endif %}
+
+</body>
+</html>

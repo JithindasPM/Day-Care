@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Colorlib</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="{% static 'reg/css/montserrat-font.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'reg/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css' %}">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="{% static 'reg/css/style.css' %}"/>
+</head>
+<body class="form-v10">
+	<div class="page-content" >
+		<div class="form-v10-content">
+			<form class="form-detail" action="{% url 'Registration_save' %}" method="post" id="myform" enctype="multipart/form-data">
+                {% csrf_token %}
+				<div class="form-left">
+					<h2>General Infomation</h2>
+					<div class="form-row">
+						<div class="form-row form-row-1">
+							<input type="text" name="Parents_Name" id="first_name" class="input-text" placeholder="Parents Name" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row form-row-1">
+							<input type="text" name="first_name" id="first_name" class="input-text" placeholder="First Name" required>
+						</div>
+						<div class="form-row form-row-2">
+							<input type="text" name="last_name" id="last_name" class="input-text" placeholder="Last Name" required>
+						</div>
+					</div>
+					<div class="form-row">
+						<input type="password" name="pwd" class="zip" id="zip" placeholder="Password " required>
+					</div>
+					<div class="form-row">
+						<input type="text" name="pickup" class="company" id="company" placeholder="Pickup Point" required>
+					</div>
+					<div class="form-group">
+						<div class="form-row form-row-3">
+							<input type="text" name="drop" class="business" id="business" placeholder="Drop Point" required>
+						</div>
+						<div class="form-row form-row-4">
+							<input type="text" name="medical" class="business" id="business" placeholder="Medical History" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row form-row-3">
+							<input type="text" name="aller" class="business" id="business" placeholder="Allergies" required>
+						</div>
+						<div class="form-row form-row-4">
+							<input type="text" name="Spl_att" class="business" id="business" placeholder="Special Attention" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row form-row-3">
+							<input type="text" name="emer" class="business" id="business" placeholder="Emergency Procedures" required>
+						</div>
+						<div class="form-row form-row-4">
+							<input type="text" name="uname" class="business" id="business" placeholder="Username" required>
+						</div>
+					</div>
+				</div>
+				<div class="form-right">
+					<h2>Contact Details</h2>
+					<div class="form-row">
+						<input type="text" name="street" class="street" id="street" placeholder="Address" required>
+					</div>
+					<div class="form-row">
+						<input type="text" name="additional" class="additional" id="additional" placeholder="Location" required>
+					</div>
+					<div class="form-group">
+						<div class="form-row form-row-1">
+							<input type="file" name="img" class="zip" id="zip" placeholder="Kid Image" required>
+						</div>
+						<div class="form-row form-row-2">
+							<input type="text" name="zip" class="zip" id="zip" placeholder="Image" readonly>
+						</div>
+					</div>
+					<div class="form-row">
+						<input type="text" name="zip" class="zip" id="zip" maxlength="6" minlength="6" placeholder="Zip Code" required>
+					</div>
+					<div class="form-group">
+						<div class="form-row form-row-1">
+							<input type="text" name="code" class="code" id="code" value="+91" placeholder="Code +" readonly>
+						</div>
+						<div class="form-row form-row-2">
+							<input type="text" name="phone" class="phone" id="phone"  maxlength="10" minlength="10" placeholder="Phone Number" required>
+						</div>
+					</div>
+					<div class="form-row">
+						<input type="email" name="your_email" id="your_email" class="input-text" required  placeholder="Your Email">
+					</div>
+					
+					<div class="form-row-last">
+						<input type="submit" name="register" class="register" value="Register">
+						<i><h2>Have an account ?<a style="text-decoration: none;color: aliceblue;" href="{% url 'ParentsLogin' %}">Sign In</a></h2></i>
+					</div>
+				</div>
+				
+			</form>
+			
+		</div>
+	</div>
+	
+</body>
+</html>

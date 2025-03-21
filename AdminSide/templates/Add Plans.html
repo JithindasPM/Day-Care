@@ -1,0 +1,34 @@
+{% extends 'Index.html' %}
+{% block content %}
+
+<div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Add Details Of Plans</h4>
+        <form class="forms-sample" action="{% url 'Save_plan' %}" method="post">
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleInputUsername1">Plan Name</label>
+            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Plan Name" name="planname">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Age Group</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Age Group" name="Age">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Price</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Amount" name="Price">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Plan Description</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Description" name="des">
+          </div>
+          
+          <button type="submit" class="btn btn-primary mr-2">Submit</button>
+          <button class="btn btn-dark">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
