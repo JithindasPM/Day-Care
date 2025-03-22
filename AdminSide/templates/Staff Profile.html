@@ -1,56 +1,56 @@
 {% extends 'Staff Dashboard.html' %}
 {% block content %}
 
-<div class="col-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h1 class="card-title">My Profile</h1>
-        <form class="forms-sample" action="{% url 'Update_Staff_Password' dataid=x.id %}" method="post">
-            {% csrf_token %}
-          <div class="form-group">
-            <label for="exampleInputName1">Name :</label>
-            <h2>{{x.Staff_Name}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail3">Location :</label>
-            <h3>{{x.Location}}</h3>
-          </div>  
-        
-          <div class="form-group">
-            <label for="exampleInputEmail3">Address :</label>
-            <h3>{{x.Address}}</h3>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail3">Phone :</label>
-            <h3>{{x.Phone}}</h3>
-          </div>
-          
-         
-          <div class="form-group">
-            <label for="exampleInputPassword4">Password</label>
-            <h4>{{x.Password}}</h4>
-            <h2>Update Password</h2>
-            <input type="password" class="form-control"  id="exampleInputPassword4" name="pwd" placeholder="Password" value="{{cab.Password}}" >
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword4">Verification Status </label>
-            <h2>{{x.Is_Verified}}</h2>
-          </div>
-          
-          
-         
+<div class="container mt-4" >
+    <div class="row d-flex justify-content-center" style="margin-top: 30px;">
+        <div class="col-md-8">
+            <div class="card bg-white text-dark shadow-sm p-4"> <!-- White card with black text -->
+                <h2 class="text-center mb-4">My Profile</h2>
+                <form action="{% url 'Update_Staff_Password' dataid=x.id %}" method="post">
+                    {% csrf_token %}
 
-          
-          
-          
-          <button type="submit" class="btn btn-primary mr-2">Submit</button>
-          <button class="btn btn-dark">Cancel</button>
-        </form>
-      </div>
+                    <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="fw-bold">Name:</label>
+                                <p class="text-dark">{{ x.Staff_Name }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="fw-bold">Location:</label>
+                                <p class="text-dark">{{ x.Location }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="fw-bold">Address:</label>
+                                <p class="text-dark">{{ x.Address }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="fw-bold">Phone:</label>
+                                <p class="text-dark">{{ x.Phone }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="fw-bold">Verification Status:</label>
+                                <p class="text-dark">{{ x.Is_Verified }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="fw-bold">Password:</label>
+                                <input type="password" class="form-control text-dark bg-light" name="pwd" placeholder="Update Password">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-primary px-4">Update</button>
+                        <button type="reset" class="btn btn-secondary px-4">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
-  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-{% endblock %}
+</div>
 
-  
+{% endblock %}

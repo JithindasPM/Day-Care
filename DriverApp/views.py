@@ -47,22 +47,18 @@ def Driver_Registration_save(req):
             return redirect(Driver_Form)
         
 
-def Driver_Dashboard(req):
-    return render(req, "Driver Dashboard.html")
-
-
-
-
+# def Driver_Dashboard(req):
+#     return render(req, "Driver Dashboard.html")
 
 
 def Driver_Login_Save(request):
     if request.method=="POST":
-        Em=request.POST.get('uname')
+        Em=request.POST.get('Email')
         pwd=request.POST.get('password')
         if Driverdb.objects.filter(Email=Em,Password=pwd,Verified='VERIFIED').exists():
             request.session['Email']=Em
             request.session['Password']=pwd
-            return redirect(Driver_Dashboard)
+            return redirect(Assigned_Childrens)
         else:
             messages.warning(request, "Check Your Credentials OR You are not a Verified User")
             return redirect(Driver_Login)
@@ -83,7 +79,8 @@ def Driver_Logout(request):
 
 def Assigned_Childrens(request):
     driver = Driverdb.objects.get(Email=request.session['Email'])
+    print(driver.Name)
     x= RegistrationDB.objects.filter(driver_id=driver)
     print(x)
-    return render(request,'Assigned Children.html',{'x':x})
+    return render(request,'Assigned Children.html',{'x':x,'driver':driver})
 

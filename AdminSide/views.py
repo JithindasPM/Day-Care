@@ -117,6 +117,7 @@ def Save_Vehicle(req):
     
 ########################################
 
+from CareApp.models import RegistrationDB
 
 def StaffDashboard(req):
     phone_number = req.session.get('Phone')
@@ -126,10 +127,12 @@ def StaffDashboard(req):
         staff_member = StaffDB.objects.get(Phone=phone_number, Password=password)
     except StaffDB.DoesNotExist:
         return redirect(Staff_Login_Page)
+    
+    data=RegistrationDB.objects.all()
 
     staff_name = staff_member.Staff_Name
     is_verified = staff_member.Is_Verified
-    return render(req,"Staff Dashboard.html",{'staff_name':staff_name, 'Is_Verified': is_verified})
+    return render(req,"Staff Dashboard.html",{'staff_name':staff_name, 'Is_Verified': is_verified,'data':data})
 
 
 def StaffList(req):

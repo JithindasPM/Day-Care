@@ -1,87 +1,54 @@
 {% extends 'Driver Dashboard.html' %}
 {% block content %}
 
-    <div class="col-12 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">My Profile</h4>
-            <form class="forms-sample" action="#" method="post">
-                {% csrf_token %}
-              <div class="form-group">
-                <label for="exampleInputName1">Name :</label>
-                <h2>{{cab.Name}}</h2>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputName1">Username :</label>
-                <h2>{{cab.Username}}</h2>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail3">Email address :</label>
-                <h3>{{cab.Email}}</h3>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail3">Address1 :</label>
-                <h3>{{cab.Address1}}</h3>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail3">Address2 :</label>
-                <h3>{{cab.Address2}}</h3>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail3">PIN CODE :</label>
-                <h4>{{cab.Pin_Code}}</h4>
-              </div>
-              
-              <div class="form-group">
-                <label for="exampleInputPassword4">Verification Status </label>
-                <h4>{{cab.Verified}}</h4>
+<div class="container" style="margin-top: 100px;">
+    <div class="card shadow-lg p-4 mb-4 bg-white rounded">
+        <div class="card-body text-center mt-2">
+            <h2 class="card-title text-primary fw-bold">My Profile</h2>
+            <hr>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="profile-info">
+                        <p><i class="fas fa-user text-primary"></i> <strong>Name:</strong> {{ cab.Name }}</p>
+                        <p><i class="fas fa-user-circle text-primary"></i> <strong>Username:</strong> {{ cab.Username }}</p>
+                        <p><i class="fas fa-envelope text-primary"></i> <strong>Email:</strong> {{ cab.Email }}</p>
+                        <p><i class="fas fa-map-marker-alt text-primary"></i> <strong>Address 1:</strong> {{ cab.Address1 }}</p>
+                        <p><i class="fas fa-map-marker-alt text-primary"></i> <strong>Address 2:</strong> {{ cab.Address2 }}</p>
+                        <p><i class="fas fa-map-pin text-primary"></i> <strong>PIN Code:</strong> {{ cab.Pin_Code }}</p>
+                        <p><i class="fas fa-id-card text-primary"></i> <strong>License Number:</strong> {{ cab.License_Number }}</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="profile-status">
+                        <p><i class="fas fa-check-circle text-success"></i> <strong>Verification Status:</strong> <span class="badge bg-success p-2">{{ cab.Verified }}</span></p>
+                        <p><i class="fas fa-car text-primary"></i> <strong>Assigned Vehicle:</strong> <span class="fw-bold">{{ cab.Vehicle_Num }}</span></p>
+                    </div>
+                    <label class="fw-bold">ID Proof:</label>
+                    <div class="mt-3">
+                        
+                        <a href="#" onclick="openPDF('{{ cab.ID_Image.url }}'); return false;">
+                            <img src="{{ cab.ID_Image.url }}" alt="ID Image" class="img-thumbnail shadow-sm" width="250px">
+                        </a>
+                    </div>
+                </div>
             </div>
-              
-              
-              <div class="form-group">
-                <label for="exampleInputCity1">License_Number :</label>
-                <h3>{{cab.License_Number}}</h3>
-              </div>
 
-              <a href="" onclick="openPDF('{{cab.ID_Image.url }}'); return false;">
-                <img src="{{cab.ID_Image.url}}" alt="" width="500px" height="350px">
-              </a>
-              
-              <div class="form-group">
-                <label for="exampleSelectGender">Assigned Vehicle :</label>
-                <h4>{{cab.Vehicle_Num}}</h4>
-              </div>
-              
-            </form>
-          </div>
+            <div class="mt-4">
+                <button class="btn btn-primary shadow-sm px-4"><i class="fas fa-edit"></i> Edit Profile</button>
+            </div>
         </div>
-      </div>
-      <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    </div>
+</div>
+
+<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script>
-    $(document).ready(function () {
-        // Hide the vehicle dropdown initially
-        $("#vehicleSelect").hide();
-
-        // Handle change event on the status dropdown
-        $("#statusSelect").change(function () {
-            // Get the selected status value
-            var selectedStatus = $(this).val();
-
-            // If the selected status is "VERIFIED", show the vehicle dropdown
-            if (selectedStatus === "VERIFIED") {
-                $("#vehicleSelect").show();
-            } else {
-                // If not, hide the vehicle dropdown
-                $("#vehicleSelect").hide();
-            }
-        });
-    });
+    function openPDF(url) {
+        window.open(url, '_blank');
+    }
 </script>
 
-      <script>
-        function openPDF(url) {
-      window.open(url, '_blank');
-    }
-    </script>
-  {% endblock %}
+{% endblock %}

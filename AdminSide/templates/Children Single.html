@@ -1,92 +1,91 @@
 {% extends 'Index.html' %}
 {% block content %}
-<div class="col-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Basic form elements</h4>
-        <p class="card-description"> Basic form elements </p>
-        <form class="forms-sample" action="{% url 'Assign_driver' infoid=x.Id %}" method="post">
-            {% csrf_token %}
-    
-          <div class="form-group">
-            <label for="exampleInputName1">First Name :</label>
-            <h2>{{x.First_Name}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Last_Name :</label>
-            <h2>{{x.Last_Name}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Username :</label>
-            <h2>{{x.Username}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Parents_Name :</label>
-            <h2>{{x.Parents_Name}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Phone :</label>
-            <h2>{{x.Phone}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Address :</label>
-            <h2>{{x.Address}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Location :</label>
-            <h2>{{x.Location}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Pickup_Point :</label>
-            <h2>{{x.Pickup_Point}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Drop_Point :</label>
-            <h2>{{x.Drop_Point}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Medical_History :</label>
-            <h2>{{x.Medical_History}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Alleries :</label>
-            <h2>{{x.Alleries}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Special_Attention :</label>
-            <h2>{{x.Special_Attention}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Emergency_Procedures :</label>
-            <h2>{{x.Emergency_Procedures}}</h2>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Image :</label>
-            <img src="{{x.Kid_Image.url}}" alt="" width="90px" height="90px">
-          </div>
-      
-          
+<div class="col-12 grid-margin stretch-card mt-5">
+    <div class="card shadow-lg p-4 rounded bg-light">
+        <div class="card-body">
+            <h2 class="card-title text-center text-dark mb-4">🚖 Assign Driver</h2>
+            <form class="forms-sample" action="{% url 'Assign_driver' infoid=x.Id %}" method="post">
+                {% csrf_token %}
 
-          
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="text-dark">First Name:</label>
+                            <h5 class="fw-bold text-dark">{{ x.First_Name }}</h5>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">Last Name:</label>
+                            <h5 class="fw-bold text-dark">{{ x.Last_Name }}</h5>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">Username:</label>
+                            <h5 class="fw-bold text-dark">{{ x.Username }}</h5>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">Parents Name:</label>
+                            <h5 class="fw-bold text-dark">{{ x.Parents_Name }}</h5>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">Phone:</label>
+                            <h5 class="fw-bold text-dark">{{ x.Phone }}</h5>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">Address:</label>
+                            <h5 class="fw-bold text-dark">{{ x.Address }}</h5>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">Location:</label>
+                            <h5 class="fw-bold text-dark">{{ x.Location }}</h5>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">Pickup Point:</label>
+                            <h5 class="fw-bold text-dark">{{ x.Pickup_Point }}</h5>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">Drop Point:</label>
+                            <h5 class="fw-bold text-dark">{{ x.Drop_Point }}</h5>
+                        </div>
+                    </div>
 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="text-dark">Medical History:</label>
+                            <h5 class="fw-bold text-dark">{{ x.Medical_History }}</h5>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">Allergies:</label>
+                            <h5 class="fw-bold text-dark">{{ x.Alleries }}</h5>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">Special Attention:</label>
+                            <h5 class="fw-bold text-dark">{{ x.Special_Attention }}</h5>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-dark">Emergency Procedures:</label>
+                            <h5 class="fw-bold text-dark">{{ x.Emergency_Procedures }}</h5>
+                        </div>
+                        <div class="form-group text-center">
+                            <label class="text-dark">Kid Image:</label><br>
+                            <img src="{{ x.Kid_Image.url }}" alt="Kid Image" class="rounded-circle shadow-lg border" width="90px" height="90px">
+                        </div>
+                        <div class="form-group">
+                            <label class="fw-bold">Assign Driver</label>
+                            <select name="driver" class="form-control border-primary shadow-sm">
+                                <option value="" class="text-dark">Select Driver</option>
+                                {% for driver in y %}
+                                <option value="{{ driver.id }}">{{ driver.Name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
-          <div class="form-group">
-            <label for="exampleSelectGender">Assign Driver</label>
-            <select name="driver"  class="form-control" id="vehicleSelect">
-                 <option value="">Select</option>
-                {% for driver in y %}
-                <option value="{{ driver.id }}">{{ driver.Name }}</option>
-                {% endfor %}
-                
-            </select>
-          </div>
-
-
-          
-          <button type="submit" class="btn btn-primary mr-2">Submit</button>
-          <button class="btn btn-dark">Cancel</button>
-        </form>
-      </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg fw-bold">🚗 Assign Driver</button>
+                    <button type="reset" class="btn btn-dark btn-lg">❌ Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
+</div>
 {% endblock %}

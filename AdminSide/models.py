@@ -32,7 +32,6 @@ class Driverdb(models.Model):
     Vehicle_Num=models.CharField(null=True,blank=True,max_length=10)
 
 
-
 class StaffDB(models.Model):
     STATUS = [
         ('Pending', 'Pending'),
@@ -46,6 +45,9 @@ class StaffDB(models.Model):
     Password=models.CharField(max_length=20,null=True,blank=True)
     Is_Verified=models.CharField(default="Pending",null=True,blank=True,choices=STATUS,max_length=100)
     Leave_Message=models.CharField(max_length=200,null=True,blank=True)
+    
+    def __str__(self):
+        return self.Staff_Name
 
 
 class Plans(models.Model):

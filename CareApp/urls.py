@@ -1,6 +1,7 @@
 from django.urls import path
 from CareApp import views
 import DriverApp.urls
+from .views import Groq_View
 
 urlpatterns=[
     path('Children_Form/',views.Children_Form,name="Children_Form"),
@@ -18,7 +19,7 @@ urlpatterns=[
     path('Payment_pg/<int:dataid>',views.Payment_pg,name="Payment_pg"),
     path('Payment_save/',views.Payment_save,name="Payment_save"),
     # path('Purchase_List/',views.Purchase_List,name="Purchase_List"),
-
+    path("chatbot/", Groq_View.as_view(), name="chatbot"),
 
 
 ]
