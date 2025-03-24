@@ -194,9 +194,13 @@ def StaffLogin(request):
         messages.warning(request, "Check Your Credentials Or Sign Up ")
         return redirect(Staff_Login_Page)
     
+# def Staff_Logout(request):
+#     del request.session['Phone']
+#     del request.session['Password']
+#     messages.success(request, "Logged Out Successfully")
+#     return redirect('Home')
 def Staff_Logout(request):
-    del request.session['Phone']
-    del request.session['Password']
+    request.session.flush()  # Clears all session data
     messages.success(request, "Logged Out Successfully")
     return redirect('Home')
 

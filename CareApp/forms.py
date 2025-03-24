@@ -9,3 +9,11 @@ class Groq_Chat_Form(forms.Form):
             'rows': 3,  # Set initial rows
         })
     )
+    
+from django import forms
+from .models import Chat
+
+class ChatMessageForm(forms.ModelForm):
+    class Meta:
+        model = Chat
+        fields = ["message"]

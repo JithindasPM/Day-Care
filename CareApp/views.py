@@ -124,9 +124,14 @@ def Update_Registration(request,infoid):
         return redirect(Home)
 
         
+# def Parents_Logout(request): 
+#     if 'Username' in request.session:
+#         del request.session['Username']
+#     messages.success(request, "Logged Out Successfully")
+#     return redirect(Home)
+
 def Parents_Logout(request): 
-    if 'Username' in request.session:
-        del request.session['Username']
+    request.session.flush()  # Clears all session data
     messages.success(request, "Logged Out Successfully")
     return redirect(Home)
 
@@ -259,4 +264,56 @@ class Groq_View(View):
             'form': form, 
             'chat_history': chat_history
         })
-        
+       
+       
+from .models import Chat
+from .forms import ChatMessageForm
+from AdminSide.models import StaffDB
+
+# def chat_view(request):
+#     messages = Chat.objects.order_by("timestamp") 
+
+#     if request.method == "POST":
+#         form = ChatMessageForm(request.POST)
+#         if form.is_valid():
+#             chat_message = form.save(commit=False)
+#             if request.session.get('Username'):
+#                 a=request.session.get('Username') 
+#                 chat_message.user = a
+#                 chat_message.save()
+#                 return redirect("chat") 
+#             elif request.session.get('Phone'):
+#                 b=request.session.get('Phone') 
+#                 data=StaffDB.objects.get(Phone=b)
+#                 chat_message.user = data.Staff_Name
+#                 chat_message.save()
+#     else:
+#         form = ChatMessageForm()
+
+#     return render(request, "chat_form.html", {"messages": messages, "form": form}) 
+def chat_view(request):
+    messages = Chat.objects.order_by("timestamp") 
+    current_user = None
+    
+    if request.session.get('Username'):
+        current_user = request.session.get('Username')
+    elif request.session.get('Phone'):
+        b = request.session.get('Phone') 
+        data = StaffDB.objects.get(Phone=b)
+        current_user = data.Staff_Name
+
+    if request.method == "POST":
+        form = ChatMessageForm(request.POST)
+        if form.is_valid():
+            chat_message = form.save(commit=False)
+            chat_message.user = current_user
+            chat_message.save()
+            return redirect("chat") 
+    else:
+        form = ChatMessageForm()
+
+    return render(request, "chat_form.html", {
+        "messages": messages, 
+        "form": form,
+        "current_user": current_user
+    })

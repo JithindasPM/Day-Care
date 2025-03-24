@@ -44,3 +44,14 @@ class Payment(models.Model):
     Expiry_Date=models.CharField(null=True,blank=True,max_length=50)
     CVV=models.CharField(null=True,blank=True,max_length=10)
     Payment_date = models.DateTimeField(auto_now=True)
+
+
+from django.db import models
+
+class Chat(models.Model):
+    message = models.TextField()
+    user=models.CharField(max_length=100)
+    timestamp = models.DateTimeField(auto_now_add=True)  # Auto timestamp
+
+    def __str__(self):
+        return f"{self.message[:30]}... ({self.timestamp})"
