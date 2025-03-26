@@ -84,11 +84,9 @@ def Parents_Login_save(request):
             print('======================')
             return redirect(Home)
         else:
-            messages.warning(request," ")
             print('-------------------------')
             return redirect(ParentsLogin)
     else:
-        messages.warning(request, " ")
         return redirect(ParentsLogin)
     
 def Update_Registration(request,infoid):
@@ -361,3 +359,45 @@ def reset_password(request):
             return JsonResponse({"status": "error", "message": "User not found!"})
 
     return render(request, "reset_password.html")
+
+
+from django.shortcuts import render, redirect
+from django.views import View
+from .models import RegistrationDB, Payment, Plans
+
+from django.shortcuts import render, redirect
+from django.views import View
+from django.utils.dateformat import format
+from .models import RegistrationDB, Payment
+
+class User_Plan_View(View):
+    def get(self, request):
+        username = request.session.get('Username')  # Use same key as in login view
+        print('Username from session:', username)  # Debugging
+
+        if not username:
+            return redirect('ParentsLogin')  # Redirect to login if no username in session
+
+        try:
+            user = RegistrationDB.objects.get(Username=username)  # Get user details
+            payments = Payment.objects.filter(Customer_ID=user).select_related('Plan_ID').order_by('-Payment_date')
+
+            if payments.exists():  # Check if payments exist
+                plan_details = [
+                    {
+                        'Plan_Name': payment.Plan_ID.Plan_Name,
+                        'Age_Group': payment.Plan_ID.Age_Group,
+                        'Price': payment.Plan_ID.Price,
+                        'Description': payment.Plan_ID.Plan_Description,  # Fixed key
+                        'Booking_Date': format(payment.Booking_Date, "d-m-Y") if payment.Booking_Date else "N/A",
+                        'Payment_Date': format(payment.Payment_date, "d-m-Y") if payment.Payment_date else "N/A",
+                    }
+                    for payment in payments
+                ]
+
+                return render(request, 'my_plans.html', {'user': user, 'plan_details': plan_details})
+            else:
+                return render(request, 'my_plans.html', {'user': user, 'message': "No plan purchased yet."})
+
+        except RegistrationDB.DoesNotExist:
+            return redirect('ParentsLogin')  # Redirect to login if user is not found

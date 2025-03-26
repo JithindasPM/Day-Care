@@ -1,7 +1,7 @@
 from django.urls import path
 from CareApp import views
 import DriverApp.urls
-from .views import Groq_View
+from .views import Groq_View,User_Plan_View
 from .views import chat_view
 
 from django.urls import path
@@ -25,6 +25,7 @@ urlpatterns=[
     # path('Purchase_List/',views.Purchase_List,name="Purchase_List"),
     path("chatbot/", Groq_View.as_view(), name="chatbot"),
     path("chat/", chat_view, name="chat"),
+    path('my-plan/', User_Plan_View.as_view(), name='my_plans'),
     
     
     path("forgot-password/", forgot_password, name="forgot_password"),

@@ -55,3 +55,5 @@ class Chat(models.Model):
 
     def __str__(self):
         return f"{self.message[:30]}... ({self.timestamp})"
+    
+    
