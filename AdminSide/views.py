@@ -280,3 +280,11 @@ def Assign_driver(req,infoid):
         dr=req.POST.get('driver')
         RegistrationDB.objects.filter(Id=infoid).update(driver=dr)
         return redirect(Children_display)
+
+
+from CareApp.models import Payment
+from django.views.generic import View
+class Add_plans_View(View):
+    def get(self,request,*args,**kwargs):
+        data=Payment.objects.all().order_by('-id')
+        return render(request,'user_plans.html',{'data':data})

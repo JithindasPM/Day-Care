@@ -17,3 +17,9 @@ class ChatMessageForm(forms.ModelForm):
     class Meta:
         model = Chat
         fields = ["message"]
+        
+        
+from django import forms
+
+class ForgotPasswordForm(forms.Form):
+    username = forms.CharField(max_length=30, required=True)

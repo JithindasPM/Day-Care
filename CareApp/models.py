@@ -41,7 +41,7 @@ class Payment(models.Model):
     CardHolder_Name=models.CharField(null=True,blank=True,max_length=900)
     Card_Num=models.CharField(null=True,blank=True,max_length=50)
     Amount=models.CharField(null=True,blank=True,max_length=90)
-    Expiry_Date=models.CharField(null=True,blank=True,max_length=50)
+    Booking_Date=models.DateTimeField(null=True,blank=True)
     CVV=models.CharField(null=True,blank=True,max_length=10)
     Payment_date = models.DateTimeField(auto_now=True)
 

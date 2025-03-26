@@ -59,7 +59,7 @@ def ParentsLogin(req):
     return render(req,"Parents Login.html") 
 
 def Home(req):
-    y=Rating.objects.all()[:4]
+    y=Rating.objects.all().order_by('-id')[:4]
     if 'Username' in req.session:
         x=RegistrationDB.objects.get(Username=req.session['Username'])
         return render(req,"Dashboard.html",{'x':x,'y':y})
@@ -81,12 +81,14 @@ def Parents_Login_save(request):
         if RegistrationDB.objects.filter(Username=Em,Password=pwd).exists():
             request.session['Username']=Em
             request.session['Password']=pwd
+            print('======================')
             return redirect(Home)
         else:
-            messages.warning(request, "Check Your Credentials OR You are not a Verified User")
+            messages.warning(request," ")
+            print('-------------------------')
             return redirect(ParentsLogin)
     else:
-        messages.warning(request, "Check Your Credentials Or Sign Up ")
+        messages.warning(request, " ")
         return redirect(ParentsLogin)
     
 def Update_Registration(request,infoid):
@@ -176,7 +178,7 @@ def Payment_save(req):
         customer = RegistrationDB.objects.filter(Username=customer_uname).first()
         if customer is None:
             messages.warning(req,"No Customer With Registered Mail")
-        x=Payment(CardHolder_Name=card_nam,Card_Num=card_nm,Amount=Amt,Expiry_Date=Exp,CVV=cvv,Customer_ID=customer,Plan_ID=num_id)
+        x=Payment(CardHolder_Name=card_nam,Card_Num=card_nm,Amount=Amt,Booking_Date=Exp,CVV=cvv,Customer_ID=customer,Plan_ID=num_id)
         x.save()
         messages.success(req,"Amount Paid Successfully")
         return redirect('Home')
@@ -270,27 +272,6 @@ from .models import Chat
 from .forms import ChatMessageForm
 from AdminSide.models import StaffDB
 
-# def chat_view(request):
-#     messages = Chat.objects.order_by("timestamp") 
-
-#     if request.method == "POST":
-#         form = ChatMessageForm(request.POST)
-#         if form.is_valid():
-#             chat_message = form.save(commit=False)
-#             if request.session.get('Username'):
-#                 a=request.session.get('Username') 
-#                 chat_message.user = a
-#                 chat_message.save()
-#                 return redirect("chat") 
-#             elif request.session.get('Phone'):
-#                 b=request.session.get('Phone') 
-#                 data=StaffDB.objects.get(Phone=b)
-#                 chat_message.user = data.Staff_Name
-#                 chat_message.save()
-#     else:
-#         form = ChatMessageForm()
-
-#     return render(request, "chat_form.html", {"messages": messages, "form": form}) 
 def chat_view(request):
     messages = Chat.objects.order_by("timestamp") 
     current_user = None
@@ -317,3 +298,66 @@ def chat_view(request):
         "form": form,
         "current_user": current_user
     })
+    
+    
+import random
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.contrib import messages
+from .models import RegistrationDB
+from django.http import JsonResponse
+
+otp_storage = {}  # Temporary storage for OTPs
+
+def forgot_password(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        try:
+            user = RegistrationDB.objects.get(Username=username)
+            otp = random.randint(100000, 999999)  # Generate a 6-digit OTP
+            otp_storage[username] = otp  # Store OTP temporarily
+
+            # Send OTP to the user's registered email
+            send_mail(
+                "Password Reset OTP",
+                f"Your OTP for password reset is {otp}",
+                "your_email@example.com",  # Replace with your email
+                [user.Mail],
+                fail_silently=False,
+            )
+            request.session["reset_username"] = username  # Store username in session
+            return JsonResponse({"status": "success", "message": "OTP sent to your email."})
+
+        except RegistrationDB.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "Username not found!"})
+
+    return render(request, "forgot_password.html")
+
+def verify_otp(request):
+    if request.method == "POST":
+        username = request.session.get("reset_username")
+        entered_otp = int(request.POST.get("otp"))
+
+        if username in otp_storage and otp_storage[username] == entered_otp:
+            return JsonResponse({"status": "success", "message": "OTP verified!"})
+        else:
+            return JsonResponse({"status": "error", "message": "Invalid OTP!"})
+
+    return render(request, "verify_otp.html")
+
+def reset_password(request):
+    if request.method == "POST":
+        username = request.session.get("reset_username")
+        new_password = request.POST.get("new_password")
+
+        try:
+            user = RegistrationDB.objects.get(Username=username)
+            user.Password = new_password  # Store password in plain text (not secure)
+            user.save()
+            del otp_storage[username]  # Remove OTP from storage
+            return JsonResponse({"status": "success", "message": "Password updated successfully!"})
+
+        except RegistrationDB.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "User not found!"})
+
+    return render(request, "reset_password.html")

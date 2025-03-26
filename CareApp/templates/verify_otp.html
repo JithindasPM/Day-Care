@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-blue-100 to-purple-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md">
+        <div class="bg-white shadow-2xl rounded-xl p-8 space-y-6">
+            <div class="text-center">
+                <i class="fas fa-mobile-alt text-5xl text-blue-500 mb-4 block"></i>
+                <h2 class="text-3xl font-bold text-gray-800">OTP Verification</h2>
+                <p class="text-gray-600 mt-2">Enter the 6-digit code sent to your registered mobile number</p>
+            </div>
+
+            <form method="POST" id="otpForm" class="space-y-4">
+                {% csrf_token %}
+                <div class="relative">
+                    <i class="fas fa-key absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input 
+                        type="number" 
+                        name="otp" 
+                        placeholder="Enter 6-digit OTP" 
+                        required 
+                        min="100000" 
+                        max="999999"
+                        pattern="\d{6}"
+                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center tracking-[0.5em] text-xl"
+                    >
+                </div>
+
+                <div class="flex justify-between items-center text-sm text-gray-600">
+                    <div id="timer" class="font-semibold"></div>
+                    <button type="button" id="resendOtp" class="text-blue-500 hover:text-blue-700 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Resend OTP
+                    </button>
+                </div>
+
+                <button 
+                    type="submit" 
+                    class="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                >
+                    Verify OTP
+                </button>
+            </form>
+
+            <div id="otpMessage" class="text-center mt-4 h-6"></div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const otpForm = document.getElementById("otpForm");
+        const messageEl = document.getElementById("otpMessage");
+        const timerEl = document.getElementById("timer");
+        const resendButton = document.getElementById("resendOtp");
+        const submitButton = otpForm.querySelector('button[type="submit"]');
+        let timeLeft = 120; // 2 minutes
+
+        // Timer function
+        function startTimer() {
+            const timer = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerEl.textContent = `Time Remaining: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    timerEl.textContent = 'OTP Expired';
+                    resendButton.disabled = false;
+                    submitButton.disabled = true;
+                    submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+                timeLeft--;
+            }, 1000);
+        }
+
+        // Initial timer start
+        startTimer();
+
+        // Resend OTP functionality
+        resendButton.addEventListener('click', async function() {
+            if (this.disabled) return;
+
+            this.disabled = true;
+            this.innerHTML = '<i class="fas fa-spinner animate-spin"></i>';
+
+            try {
+                const response = await fetch("{% url 'verify_otp' %}", {
+                    method: "POST",
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                });
+
+                const result = await response.json();
+                
+                messageEl.innerText = result.message;
+                messageEl.classList.remove('text-red-500', 'text-green-500');
+                messageEl.classList.add(result.status === 'success' ? 'text-green-500' : 'text-red-500');
+
+                if (result.status === 'success') {
+                    // Reset timer
+                    timeLeft = 120;
+                    startTimer();
+                    resendButton.disabled = true;
+                }
+            } catch (error) {
+                messageEl.innerText = 'An unexpected error occurred. Please try again.';
+                messageEl.classList.add('text-red-500');
+            } finally {
+                this.disabled = false;
+                this.innerHTML = 'Resend OTP';
+            }
+        });
+
+        otpForm.onsubmit = async function(event) {
+            event.preventDefault();
+            
+            // Clear previous message and disable button
+            messageEl.innerText = '';
+            submitButton.disabled = true;
+            submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+            
+            let formData = new FormData(this);
+            
+            try {
+                let response = await fetch("{% url 'verify_otp' %}", {
+                    method: "POST",
+                    body: formData
+                });
+
+                let result = await response.json();
+                
+                // Show message
+                messageEl.innerText = result.message;
+                messageEl.classList.remove('text-red-500', 'text-green-500');
+                messageEl.classList.add(result.status === 'success' ? 'text-green-500' : 'text-red-500');
+                
+                if (result.status === "success") {
+                    // Add animation before redirect
+                    submitButton.innerHTML = '<i class="fas fa-spinner animate-spin"></i>';
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    window.location.href = "{% url 'reset_password' %}";
+                }
+            } catch (error) {
+                messageEl.innerText = 'An unexpected error occurred. Please try again.';
+                messageEl.classList.add('text-red-500');
+            } finally {
+                // Re-enable button
+                submitButton.disabled = false;
+                submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        };
+    });
+    </script>
+</body>
+</html>

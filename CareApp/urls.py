@@ -4,6 +4,9 @@ import DriverApp.urls
 from .views import Groq_View
 from .views import chat_view
 
+from django.urls import path
+from .views import forgot_password, verify_otp, reset_password
+
 urlpatterns=[
     path('Children_Form/',views.Children_Form,name="Children_Form"),
     path('',views.Home,name="Home"),
@@ -22,6 +25,11 @@ urlpatterns=[
     # path('Purchase_List/',views.Purchase_List,name="Purchase_List"),
     path("chatbot/", Groq_View.as_view(), name="chatbot"),
     path("chat/", chat_view, name="chat"),
+    
+    
+    path("forgot-password/", forgot_password, name="forgot_password"),
+    path("verify-otp/", verify_otp, name="verify_otp"),
+    path("reset-password/", reset_password, name="reset_password"),
 
 
 ]

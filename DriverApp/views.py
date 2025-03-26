@@ -44,7 +44,7 @@ def Driver_Registration_save(req):
             from_email = 'aadhivish67890@gmail.com'  
             to_email = [en]
             send_mail(subject, message, from_email, to_email)
-            return redirect(Driver_Form)
+            return redirect('Home')
         
 
 # def Driver_Dashboard(req):

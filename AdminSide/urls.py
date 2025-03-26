@@ -1,5 +1,6 @@
 from django.urls import path
 from AdminSide import views
+from . views import Add_plans_View
 
 urlpatterns=[
     path('Index/',views.Index,name="Index"),
@@ -41,5 +42,8 @@ urlpatterns=[
     path('Children_display/',views.Children_display,name="Children_display"),
     path('single_Children/<int:infoid>',views.single_Children,name="single_Children"),
     path('Assign_driver/<int:infoid>',views.Assign_driver,name="Assign_driver"),
+    
+    path('user_plan/',Add_plans_View.as_view(),name="user_plan"),
+    
 
 ]

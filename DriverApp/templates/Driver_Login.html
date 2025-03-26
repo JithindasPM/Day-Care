@@ -11,6 +11,19 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<link rel="stylesheet" href="{% static 'usr/css/style.css' %}">
+	<style>
+		.main{
+			border-top: 4px solid white;
+			border-bottom: 4px solid white;
+			border-radius: 7px;
+			padding-top: 50px;
+			padding-bottom: 50px;
+		}
+		.text{
+			color: white;
+			text-shadow: 0 0 1px;
+		}
+	</style>
 
 	</head>
 	<body class="img js-fullheight" style="background-image: url({% static 'usr/images/driverlog2.avif' %});">
@@ -18,14 +31,15 @@
 		<div class="container">
 			<div class="row justify-content-center">
 			</div>
-			<div class="row justify-content-center">
+			<div class="row justify-content-center mt-5 ">
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
-		      	<h3 class="mb-4 text-center">Have an account?</h3>
-		      	<form action="{% url 'Driver_Login_Save' %}" class="signin-form" method="post">
+		      	
+		      	<form action="{% url 'Driver_Login_Save' %}" class="signin-form main" method="post">
+					<h3 class="mb-4 text-center text">Have an account?</h3>
 					{% csrf_token %}
 		      		<div class="form-group">
-		      			<input type="email" class="form-control" placeholder="abc@gmail.com" name="Email" required>
+		      			<input type="email" class="form-control" placeholder="Enter your mail" name="Email" required>
 		      		</div>
 	            <div class="form-group">
 	              <input id="password-field" type="password" class="form-control" placeholder="Password" name="password" required>
@@ -34,10 +48,9 @@
 	            <div class="form-group">
 	            	<button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
 	            </div>
+				<a href="{% url 'Driver_Form' %}"><p class="w-100 text-center"> Or Sign Up </p></a>
 	          </form>
-						<a href="{% url 'Driver_Form' %}">	          <p class="w-100 text-center"> Or Sign Up </p>
-</a>
-
+						
 		      </div>
 				</div>
 			</div>
