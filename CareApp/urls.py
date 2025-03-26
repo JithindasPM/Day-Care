@@ -1,7 +1,7 @@
 from django.urls import path
 from CareApp import views
 import DriverApp.urls
-from .views import Groq_View,User_Plan_View
+from .views import Groq_View,User_Plan_View,Cancel_Plan_View
 from .views import chat_view
 
 from django.urls import path
@@ -31,6 +31,7 @@ urlpatterns=[
     path("forgot-password/", forgot_password, name="forgot_password"),
     path("verify-otp/", verify_otp, name="verify_otp"),
     path("reset-password/", reset_password, name="reset_password"),
+    path('cancel-plan/<int:payment_id>/', Cancel_Plan_View.as_view(), name='CancelPlan'),
 
 
 ]

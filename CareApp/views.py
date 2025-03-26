@@ -361,19 +361,16 @@ def reset_password(request):
     return render(request, "reset_password.html")
 
 
-from django.shortcuts import render, redirect
-from django.views import View
-from .models import RegistrationDB, Payment, Plans
 
 from django.shortcuts import render, redirect
 from django.views import View
 from django.utils.dateformat import format
-from .models import RegistrationDB, Payment
+from .models import RegistrationDB, Payment ,Plans
+from django.utils.timezone import now
 
 class User_Plan_View(View):
     def get(self, request):
         username = request.session.get('Username')  # Use same key as in login view
-        print('Username from session:', username)  # Debugging
 
         if not username:
             return redirect('ParentsLogin')  # Redirect to login if no username in session
@@ -383,8 +380,10 @@ class User_Plan_View(View):
             payments = Payment.objects.filter(Customer_ID=user).select_related('Plan_ID').order_by('-Payment_date')
 
             if payments.exists():  # Check if payments exist
+                current_date = now().date()
                 plan_details = [
                     {
+                        'payment_id': payment.id,
                         'Plan_Name': payment.Plan_ID.Plan_Name,
                         'Age_Group': payment.Plan_ID.Age_Group,
                         'Price': payment.Plan_ID.Price,
@@ -395,9 +394,36 @@ class User_Plan_View(View):
                     for payment in payments
                 ]
 
-                return render(request, 'my_plans.html', {'user': user, 'plan_details': plan_details})
+                return render(request, 'my_plans.html', {'user': user, 'plan_details': plan_details,'current_date':current_date})
             else:
                 return render(request, 'my_plans.html', {'user': user, 'message': "No plan purchased yet."})
 
         except RegistrationDB.DoesNotExist:
             return redirect('ParentsLogin')  # Redirect to login if user is not found
+
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views import View
+from django.contrib import messages
+from .models import Payment  # Import the Payment model
+
+class Cancel_Plan_View(View):
+    def get(self, request, payment_id):  # Change from `post` to `get`
+        username = request.session.get('Username')  # Ensure user is logged in
+
+        if not username:
+            messages.error(request, "You must be logged in to cancel a plan.")
+            return redirect('ParentsLogin')
+
+        payment = get_object_or_404(Payment, id=payment_id)
+
+        # Optional: Prevent canceling past bookings
+        if payment.Booking_Date and payment.Booking_Date.date() < now().date():
+            messages.error(request, "You cannot cancel past bookings.")
+            return redirect('my_plans') 
+
+        payment.delete()
+        messages.success(request, "Your plan has been successfully canceled.")
+
+        return redirect('my_plans') 
+
