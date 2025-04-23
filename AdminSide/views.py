@@ -179,21 +179,44 @@ def Save_staff(req):
 
 
     
+# def StaffLogin(request):
+#     if request.method=="POST":
+#         ph=request.POST.get('Phone')
+#         pwd=request.POST.get('password')
+#         if StaffDB.objects.filter(Phone=ph,Password=pwd).exists():
+#             request.session['Phone']=ph
+#             request.session['Password']=pwd
+#             return redirect(StaffDashboard)
+#         else:
+#             messages.warning(request, "Check Your Credentials OR You are not a Verified User")
+#             return redirect(Staff_Login_Page)
+#     else:
+#         messages.warning(request, "Check Your Credentials Or Sign Up ")
+#         return redirect(Staff_Login_Page)
+    
+    
+from django.shortcuts import redirect
+from django.contrib import messages
+from .models import StaffDB
+
 def StaffLogin(request):
-    if request.method=="POST":
-        ph=request.POST.get('Phone')
-        pwd=request.POST.get('password')
-        if StaffDB.objects.filter(Phone=ph,Password=pwd).exists():
-            request.session['Phone']=ph
-            request.session['Password']=pwd
+    if request.method == "POST":
+        ph = request.POST.get('Phone')
+        pwd = request.POST.get('password')
+
+        # Check if user exists and is approved
+        if StaffDB.objects.filter(Phone=ph, Password=pwd, Is_Verified="Approved").exists():
+            request.session['Phone'] = ph
+            request.session['Password'] = pwd
             return redirect(StaffDashboard)
         else:
-            messages.warning(request, "Check Your Credentials OR You are not a Verified User")
+            messages.warning(request, "Check Your Credentials OR You are not a Verified (Approved) User")
             return redirect(Staff_Login_Page)
     else:
         messages.warning(request, "Check Your Credentials Or Sign Up ")
         return redirect(Staff_Login_Page)
-    
+
+
 # def Staff_Logout(request):
 #     del request.session['Phone']
 #     del request.session['Password']
